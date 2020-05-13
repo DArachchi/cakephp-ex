@@ -221,7 +221,7 @@ objects:
   kind: NetworkPolicy
   metadata:
     name: allow-openshift-ingress
-    namespace: ${DATABASE_NAMESPACE}
+    namespace: ${FRONTEND_NAMESPACE}
   spec:
     podSelector: {}
     ingress:
@@ -233,7 +233,7 @@ objects:
   kind: NetworkPolicy
   metadata:
     name: allow-same-namespace
-    namespace: ${DATABASE_NAMESPACE}
+    namespace: ${FRONTEND_NAMESPACE}
   spec:
     podSelector: {}
     ingress:
@@ -243,7 +243,7 @@ objects:
   kind: NetworkPolicy
   metadata:
     name: deny-by-default
-    namespace: ${DATABASE_NAMESPACE}
+    namespace: ${FRONTEND_NAMESPACE}
   spec:
     podSelector:
     ingress: []
