@@ -27,6 +27,13 @@ labels:
   template: cakephp-multi-project-mysql-persistent
   app: cakephp-example
 parameters:
+- name: FRONTEND_NAMESPACE
+  displayName: Frontend Namespace
+  description: >-
+    The OpenShift Namespace where the Frontend application deployment, route,
+    and service reside.
+  required: true
+  value: cakephp-example-frontend
 - name: DATABASE_NAMESPACE
   displayName: Database Namespace
   description: >-
