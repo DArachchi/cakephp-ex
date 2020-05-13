@@ -157,3 +157,40 @@ objects:
             limits:
               cpu: "1"
               memory: ${MEMORY_MYSQL_LIMIT}
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: allow-openshift-ingress
+    namespace: ${DATABASE_NAMESPACE}
+  spec:
+    podSelector: {}
+    ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            network.openshift.io/policy-group: ingress
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: allow-frontend-to-database
+    namespace: ${DATABASE_NAMESPACE}
+  spec:
+    podSelector:
+      matchLabels:
+        name: ${DATABASE_SERVICE_NAME}
+    ingress:
+    - from:
+      - namespaceSelector:
+          matchLabels:
+            name: ${FRONTEND_NAMESPACE}
+      ports:
+      - protocol: TCP
+        port: 3306
+- apiVersion: networking.k8s.io/v1
+  kind: NetworkPolicy
+  metadata:
+    name: deny-by-default
+    namespace: ${DATABASE_NAMESPACE}
+  spec:
+    podSelector:
+    ingress: []
